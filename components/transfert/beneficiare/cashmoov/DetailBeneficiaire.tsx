@@ -7,6 +7,7 @@ import { RootStackParamList } from "@/navigation/types";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { handleContactsPermission } from "@/utils/permissionHandler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -23,7 +24,8 @@ export default function DetailBeneficiare() {
 
 
     return (
-        <View style={{ flex: 1}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
             <Header title="Transfert d'argent"/>
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
@@ -85,6 +87,7 @@ export default function DetailBeneficiare() {
                 </ScrollView>
             </KeyboardAvoidingView>
         </View>
+        </SafeAreaView>
     );
 }
 

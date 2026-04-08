@@ -7,6 +7,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import Header from "@/components/Headers";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -20,32 +21,34 @@ export default function CreditOption() {
     const navigation = useNavigation<NavigationProp>();
 
     return (
-       <View style={{ flex: 1}}>
-            <Header title="Achat de crédits"/>
-             <View style={styles.container}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                    <Header title="Achat de crédits"/>
+                    <View style={styles.container}>
 
-                <ScrollView 
-                    showsVerticalScrollIndicator={false}
-                >
-                    <View style={styles.grid}>
-                        {paiementService.map((service, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                style={styles.item}
-                                onPress={() => navigation.navigate("CreditDetail", {
-                                    typeCredit: service.typeCredit as any,
-                                })}
-                            >
-                                <View style={styles.icon}>
-                                    <FontAwesome6 name={service.name} size={moderateScale(15)} color="white"/>
-                                </View>
-                                <Text style={styles.itemText}>{service.label}</Text>
-                            </TouchableOpacity>
-                        ))}
+                        <ScrollView 
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View style={styles.grid}>
+                                {paiementService.map((service, index) => (
+                                    <TouchableOpacity
+                                        key={index}
+                                        style={styles.item}
+                                        onPress={() => navigation.navigate("CreditDetail", {
+                                            typeCredit: service.typeCredit as any,
+                                        })}
+                                    >
+                                        <View style={styles.icon}>
+                                            <FontAwesome6 name={service.name} size={moderateScale(15)} color="white"/>
+                                        </View>
+                                        <Text style={styles.itemText}>{service.label}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </ScrollView>  
                     </View>
-                </ScrollView>  
             </View>
-       </View>
+        </SafeAreaView>
     );
 }
 

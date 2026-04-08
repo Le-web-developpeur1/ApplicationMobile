@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import Header from "@/components/Headers";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -21,28 +22,31 @@ export default function PaiementProduit() {
     
 
     return (
-       <View style={{ flex: 1}}>
-            <Header title="Produits digitaux"/>
-             <View style={styles.container}>
-                <ScrollView 
-                    showsVerticalScrollIndicator={false}
-                >
-                    <Text style={styles.title}>Veuillez choisir un service</Text>
-                    <View style={styles.grid}>
-                        {paiementService.map((service, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                style={styles.item}
-                                onPress={() => { navigation.navigate(service.route as any)}}
-                            >
-                                <Image source={service.img} style={styles.image}/>
-                                <Text style={styles.itemText}>{service.label}</Text>
-                            </TouchableOpacity>
-                        ))}
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
+                    <Header title="Produits digitaux"/>
+                    <View style={styles.container}>
+                        <ScrollView 
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <Text style={styles.title}>Veuillez choisir un service</Text>
+                            <View style={styles.grid}>
+                                {paiementService.map((service, index) => (
+                                    <TouchableOpacity
+                                        key={index}
+                                        style={styles.item}
+                                        onPress={() => { navigation.navigate(service.route as any)}}
+                                    >
+                                        <Image source={service.img} style={styles.image}/>
+                                        <Text style={styles.itemText}>{service.label}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </ScrollView>  
                     </View>
-                </ScrollView>  
             </View>
-       </View>
+        </SafeAreaView>
+
     );
 }
 

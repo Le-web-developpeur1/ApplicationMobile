@@ -13,7 +13,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
-export const ServiceOTP = () => {
+const ServiceOTP = () => {
     const [code, setCode] = useState<number[]>([]);
     const codeLength = Array(6).fill(0);
 
@@ -130,6 +130,8 @@ export const ServiceOTP = () => {
         </SafeAreaView>
     );
 }
+
+export default ServiceOTP;
 
 const styles = StyleSheet.create({
     greeting: {

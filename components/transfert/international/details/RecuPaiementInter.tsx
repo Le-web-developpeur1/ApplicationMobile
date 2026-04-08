@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import Header from "../../../Headers";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -37,55 +38,57 @@ export default function RecuPaiementInter() {
         
         
     return (
-        <View style={{ flex: 1}}>
-            <Header title="Réçu de Paiement"/>
-            <View style={styles.container1}>
-               <View style={styles.container2}>
-                    <ScrollView style={{ flex: 1 }}>
-                            <View style={styles.amount}>
-                                <Text style={styles.amountBig}>{newGnf} GNF</Text>
-                                <Text style={styles.amountSmall}>Frais: {frais} GNF</Text>
-                                <Text style={styles.amountSmall}>Taux de change: {taux}</Text>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
+                <Header title="Réçu de Paiement"/>
+                <View style={styles.container1}>
+                <View style={styles.container2}>
+                        <ScrollView style={{ flex: 1 }}>
+                                <View style={styles.amount}>
+                                    <Text style={styles.amountBig}>{newGnf} GNF</Text>
+                                    <Text style={styles.amountSmall}>Frais: {frais} GNF</Text>
+                                    <Text style={styles.amountSmall}>Taux de change: {taux}</Text>
 
-                                <View style={styles.montantEnvoie}>
-                                    <Text style={styles.textEnvoie}>Montant à payer</Text>
-                                </View>
-
-                                <Text style={styles.amountBig}>{newXof} XOF</Text>
-                            </View>
-                            <View style={styles.separator} />
-                            <View style={styles.benef}>
-                                <Text style={styles.benefTitle}>Bénéficiaire</Text>
-                                <View style={styles.info}>
-                                    <View style={styles.iconUser}>
-                                    <FontAwesome6 name="user" size={moderateScale(20)} color="#2A4793"/>
+                                    <View style={styles.montantEnvoie}>
+                                        <Text style={styles.textEnvoie}>Montant à payer</Text>
                                     </View>
-                                    <View style={styles.nameDate}>
-                                        <Text style={styles.name}>{name}</Text>
-                                        <Text style={styles.date}>{date}</Text>
-                                    </View>
-                                    <Text style={styles.numero}>{formatPhone(phone)}</Text>
-                                </View>
-                            </View>
-                    </ScrollView>
-                </View>
 
-                <View style={styles.button}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate("Tabs")}
-                        style={styles.annuler}
-                    >
-                        <Text style={styles.annulerText}>Retour</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.confirmer}
-                    >
-                        <EvilIcons name="share-google" size={22} color="#2A4793"/>
-                        <Text style={styles.confirmerText}>Partager</Text>
-                    </TouchableOpacity>
+                                    <Text style={styles.amountBig}>{newXof} XOF</Text>
+                                </View>
+                                <View style={styles.separator} />
+                                <View style={styles.benef}>
+                                    <Text style={styles.benefTitle}>Bénéficiaire</Text>
+                                    <View style={styles.info}>
+                                        <View style={styles.iconUser}>
+                                        <FontAwesome6 name="user" size={moderateScale(20)} color="#2A4793"/>
+                                        </View>
+                                        <View style={styles.nameDate}>
+                                            <Text style={styles.name}>{name}</Text>
+                                            <Text style={styles.date}>{date}</Text>
+                                        </View>
+                                        <Text style={styles.numero}>{formatPhone(phone)}</Text>
+                                    </View>
+                                </View>
+                        </ScrollView>
                     </View>
+
+                    <View style={styles.button}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("Tabs")}
+                            style={styles.annuler}
+                        >
+                            <Text style={styles.annulerText}>Retour</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.confirmer}
+                        >
+                            <EvilIcons name="share-google" size={22} color="#2A4793"/>
+                            <Text style={styles.confirmerText}>Partager</Text>
+                        </TouchableOpacity>
+                        </View>
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

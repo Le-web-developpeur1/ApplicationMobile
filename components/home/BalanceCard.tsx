@@ -15,7 +15,7 @@ const BalanceCard = () => {
           <Text style={styles.label}>Solde disponible</Text>
 
           <Text style={styles.amountSmall}>
-            {hiddenDisponible ? "••••••" : "12 265 749 GNF"}
+            {hiddenDisponible ? "••••••" : "12 265 749 000  GNF"}
           </Text>
 
           <TouchableOpacity onPress={() => setHiddenDisponible(!hiddenDisponible)}>
@@ -26,12 +26,12 @@ const BalanceCard = () => {
             />
           </TouchableOpacity>
         </View>
-
+        <View style={styles.separtor}/>
         <View style={styles.column}>
           <Text style={styles.label}>Solde réservé</Text>
 
           <Text style={styles.amountSmall}>
-                {hiddenReserve ? "••••••" : "2 500 000 GNF"}
+                {hiddenReserve ? "••••••" : "2 500 000 000 GNF"}
           </Text>
 
           <TouchableOpacity onPress={() => setHiddenReserve(!hiddenReserve)}>
@@ -74,18 +74,21 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1, 
-    backgroundColor: "#F9FAFB", 
     padding: scale(7), 
     borderRadius: moderateScale(12), 
   },
 
   label: {
-    fontSize: moderateScale(14),
-    color: "#6B7280",
-    fontWeight: "500",
+    fontSize: moderateScale(16),
+    color: "#2A4793",
+    fontWeight: "600",
 
   },
-
+  separtor: {
+    width: 1,
+    borderRightWidth: 1,
+    borderRightColor: "#D1D5DB", 
+  },
   amountSmall: {
     marginVertical: verticalScale(8),
     fontSize: moderateScale(16),

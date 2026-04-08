@@ -8,7 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
-const LOCK_TIME = 3000;
+const LOCK_TIME = 1000000;
 
 export const UserInactivityProvider = ({children} : React.PropsWithChildren) => {
     const appState = useRef(AppState.currentState);
@@ -23,16 +23,10 @@ export const UserInactivityProvider = ({children} : React.PropsWithChildren) => 
     }, []);
 
     const handleAppStateChange = (nextAppState: AppStateStatus) => {
-        console.log("appState", appState.current, nextAppState);
 
-        if (
-            nextAppState === "inactive" ||
+        if (nextAppState === "inactive" ||
             (Platform.OS === "android" && nextAppState === "background")
         ) {
-            navigation.navigate("Overlay");
-        }
-
-        if (nextAppState === "background") {
             recordStartTime();
         } else if (nextAppState === "active" && appState.current === "background") {
             const checkInactivity = async () => {

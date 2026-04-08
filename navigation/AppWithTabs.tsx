@@ -40,8 +40,8 @@ import ConfirmMarchand from '@/components/paiements/marchand/ConfirmMarchand';
 import RetraitDetail from '@/components/retrait/RetraitDetail';
 import RechargeOption from '@/components/recharge/RechargeOption';
 import RechargeDetail from '@/components/recharge/RechargeDetail';
-import { Overlay } from '@/components/Overlay';
-import { ServiceOTP } from '@/screen/lock/ServiceOTP';
+import Overlay  from '@/components/Overlay';
+import ServiceOTP from '@/screen/lock/ServiceOTP';
 import FraisScreen from '@/screen/profil/frais/FraisScreen';
 import LangueScreen from '@/screen/profil/langue/LangueScreen';
 import HistoriqueScreen from '@/screen/transactions/HistoriqueScreen';
@@ -49,92 +49,121 @@ import ServicesScreen from '@/screen/services/ServicesScreen';
 import About from '@/screen/profil/About';
 import PasswordChange from '@/screen/profil/PasswordChange';
 import UpdatePicture from '@/screen/profil/UpdatePicture';
+import TransactionsLimit from '@/screen/profil/TransactionsLimit';
+import FermetureCompte from '@/screen/profil/FermetureCompte';
+import Disconnected from '@/screen/profil/Disconnected';
+import Confidentialite from '@/screen/profil/Confidentialite';
+import RecuTransaction from '@/components/home/RecuTransaction';
+import WebScreen from '@/components/webview/WebView';
+import NotificationsScreen from '@/screen/notifications/NotificationsScreen';
+import ProfileScreen from '@/screen/profil/ProfilScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'react-native';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppWithTabs() {
     return (
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name='Tabs' component={AppNavigator}/>
 
-                <Stack.Screen name='Overlay' component={Overlay} options={{ animation: "fade", animationDuration: 500}}/>
-                <Stack.Screen name='ServiceOTP' component={ServiceOTP} options={{ animation: "fade", animationDuration: 500}}/>
+           <SafeAreaProvider>
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor="#2A4793"
+                    translucent={false}
+                />
+                <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none'  }}>
+                    <Stack.Screen name='Tabs' component={AppNavigator}/>
+                    <Stack.Screen name="Notifications" component={NotificationsScreen}/>
+                    <Stack.Screen name='Profil' component={ProfileScreen}/>
 
-                                {/** Ecrans Permissions */}
-                <Stack.Screen name='ContactScreen' component={ContactScreen} />
-                <Stack.Screen name='QrScanner' component={QrScanner}/>
+                    <Stack.Screen name='Overlay' component={Overlay} options={{ animation: "fade", animationDuration: 500}}/>
+                    <Stack.Screen name='ServiceOTP' component={ServiceOTP} options={{ animation: "fade", animationDuration: 500}}/>
 
-                                {/** Transfert */}
-                <Stack.Screen name='Transfert' component={TransactionsScreen} />
-                <Stack.Screen name='OptionTransfert' component={OptionTransfert} />
-                <Stack.Screen name='ServicesPartenaire' component={ServicesScreen}/>
-                <Stack.Screen name='HistoriqueScreen' component={HistoriqueScreen}/>
+                                    {/** Ecrans Permissions */}
+                    <Stack.Screen name='ContactScreen' component={ContactScreen} />
+                    <Stack.Screen name='QrScanner' component={QrScanner}/>
 
-                            {/** Transfert National */}
-                <Stack.Screen name='National' component={National} />
-                <Stack.Screen name='DetailBeneficiare' component={DetailBeneficiare} />
-                <Stack.Screen name='Confirmation' component={Confirmation} />
-                <Stack.Screen name='RecuPaiement' component={RecuPaiement} />
+                                    {/** Transfert */}
+                    <Stack.Screen name='Transfert' component={TransactionsScreen} />
+                    <Stack.Screen name='OptionTransfert' component={OptionTransfert} />
+                    <Stack.Screen name='ServicesPartenaire' component={ServicesScreen}/>
+                    <Stack.Screen name='HistoriqueScreen' component={HistoriqueScreen}/>
 
-                            {/** Transfert National OM */}
-                <Stack.Screen name='DetailTransactions' component={DetailTranscations} />
-                <Stack.Screen name='DetailBeneficiareOm' component={DetailBeneficiareOm} />
-                <Stack.Screen name='ConfirmationOm' component={ConfirmationOm} />
-                
-                            {/** Transfert international */}
-                <Stack.Screen name='International' component={International} />
-                <Stack.Screen name='DetailsInternational' component={DetailsInternational} />
-                <Stack.Screen name='ConfirmationInter' component={ConfirmationInter} />
-                <Stack.Screen name='RecuPaiementInter' component={RecuPaiementInter} />
+                                {/** Transfert National */}
+                    <Stack.Screen name='National' component={National} />
+                    <Stack.Screen name='DetailBeneficiare' component={DetailBeneficiare} />
+                    <Stack.Screen name='Confirmation' component={Confirmation} />
+                    <Stack.Screen name='RecuPaiement' component={RecuPaiement} />
 
-                            {/** Paiement */}
-                <Stack.Screen name='PaiementOption' component={PaiementScreen}/>
-                
-                            {/** Paiement Facture */}
-                <Stack.Screen name='PaiementFacture' component={PaiementFacture}/>
-                <Stack.Screen name='DetailPaiement' component={DetailPaiement}/>
-                <Stack.Screen name='DetailDebit' component={DetailDebit}/>
+                                {/** Transfert National OM */}
+                    <Stack.Screen name='DetailTransactions' component={DetailTranscations} />
+                    <Stack.Screen name='DetailBeneficiareOm' component={DetailBeneficiareOm} />
+                    <Stack.Screen name='ConfirmationOm' component={ConfirmationOm} />
+                    
+                                {/** Transfert international */}
+                    <Stack.Screen name='International' component={International} />
+                    <Stack.Screen name='DetailsInternational' component={DetailsInternational} />
+                    <Stack.Screen name='ConfirmationInter' component={ConfirmationInter} />
+                    <Stack.Screen name='RecuPaiementInter' component={RecuPaiementInter} />
 
-                            {/** Paiements Produits digitaux */}
-                <Stack.Screen name='PaiementProduit' component={PaiementProduit}/>
+                                {/** Paiement */}
+                    <Stack.Screen name='PaiementOption' component={PaiementScreen}/>
+                    
+                                {/** Paiement Facture */}
+                    <Stack.Screen name='PaiementFacture' component={PaiementFacture}/>
+                    <Stack.Screen name='DetailPaiement' component={DetailPaiement}/>
+                    <Stack.Screen name='DetailDebit' component={DetailDebit}/>
 
-                            {/** E-Sim */}
-                <Stack.Screen name='ESim' component={ESim}/>
-                <Stack.Screen name='ESimService' component={ESimService}/>
-                <Stack.Screen name='DetailEsim' component={DetailEsim}/>
-                <Stack.Screen name='EsimBenef' component={EsimBenef}/>
-                <Stack.Screen name='EsimConfirm' component={EsimConfirm}/>
+                                {/** Paiements Produits digitaux */}
+                    <Stack.Screen name='PaiementProduit' component={PaiementProduit}/>
 
-                            {/** Gift Card */}
-                <Stack.Screen name='GiftCard' component={GiftCard}/>
-                <Stack.Screen name='GiftCardService' component={GiftCardService}/>
-                <Stack.Screen name='DetailGiftCard' component={DetailGiftcard}/>
-                <Stack.Screen name='GiftCardBenef' component={GiftCardBenef}/>
-                <Stack.Screen name='GiftCardConfirm' component={GiftCardConfirm}/>
+                                {/** E-Sim */}
+                    <Stack.Screen name='ESim' component={ESim}/>
+                    <Stack.Screen name='ESimService' component={ESimService}/>
+                    <Stack.Screen name='DetailEsim' component={DetailEsim}/>
+                    <Stack.Screen name='EsimBenef' component={EsimBenef}/>
+                    <Stack.Screen name='EsimConfirm' component={EsimConfirm}/>
 
-                            {/** Achat de crédit */}
-                <Stack.Screen name='CreditOption' component={CreditOption}/>
-                <Stack.Screen name='CreditDetail' component={CreditDetail}/>
-                <Stack.Screen name='CreditConfirm' component={CreditConfirm}/>
+                                {/** Gift Card */}
+                    <Stack.Screen name='GiftCard' component={GiftCard}/>
+                    <Stack.Screen name='GiftCardService' component={GiftCardService}/>
+                    <Stack.Screen name='DetailGiftCard' component={DetailGiftcard}/>
+                    <Stack.Screen name='GiftCardBenef' component={GiftCardBenef}/>
+                    <Stack.Screen name='GiftCardConfirm' component={GiftCardConfirm}/>
 
-                            {/** Paiement marchand */}
-                <Stack.Screen name='DetailMarchand' component={DetailMarchand}/>
-                <Stack.Screen name='ConfirmMarchand' component={ConfirmMarchand}/>
+                                {/** Achat de crédit */}
+                    <Stack.Screen name='CreditOption' component={CreditOption}/>
+                    <Stack.Screen name='CreditDetail' component={CreditDetail}/>
+                    <Stack.Screen name='CreditConfirm' component={CreditConfirm}/>
 
-                            {/** Retrait */}
-                <Stack.Screen name='RetraitDetail' component={RetraitDetail}/>
+                                {/** Paiement marchand */}
+                    <Stack.Screen name='DetailMarchand' component={DetailMarchand}/>
+                    <Stack.Screen name='ConfirmMarchand' component={ConfirmMarchand}/>
 
-                            {/** Rechargement */}
-                <Stack.Screen name='RechargeOption' component={RechargeOption}/>
-                <Stack.Screen name='RechargeDetail' component={RechargeDetail}/>
+                                {/** Retrait */}
+                    <Stack.Screen name='RetraitDetail' component={RetraitDetail}/>
 
-                            {/** Profil */}
-                <Stack.Screen name='FraisScreen' component={FraisScreen}/>
-                <Stack.Screen name='LangueScreen' component={LangueScreen}/>
-                <Stack.Screen name='About' component={About}/>
-                <Stack.Screen name='PasswordChange' component={PasswordChange}/>
-                <Stack.Screen name='UpdatePicture' component={UpdatePicture}/>
+                                {/** Rechargement */}
+                    <Stack.Screen name='RechargeOption' component={RechargeOption}/>
+                    <Stack.Screen name='RechargeDetail' component={RechargeDetail}/>
 
-            </Stack.Navigator>
+                                {/** Profil */}
+                    <Stack.Screen name='FraisScreen' component={FraisScreen}/>
+                    <Stack.Screen name='LangueScreen' component={LangueScreen}/>
+                    <Stack.Screen name='About' component={About}/>
+                    <Stack.Screen name='PasswordChange' component={PasswordChange}/>
+                    <Stack.Screen name='UpdatePicture' component={UpdatePicture}/>
+                    <Stack.Screen name='TransactionsLimit' component={TransactionsLimit}/>
+                    <Stack.Screen name='FermetureCompte' component={FermetureCompte}/>
+                    <Stack.Screen name='Disconnected' component={Disconnected}/>
+                    <Stack.Screen name='Confidentialite' component={Confidentialite}/>
+
+                                {/** Home */}
+                    <Stack.Screen name='RecuTransaction' component={RecuTransaction}/>
+
+                                {/** WebScreen */}
+                    <Stack.Screen name='WebScreen' component={WebScreen} options={{ animation: "none" }}/>
+                </Stack.Navigator>
+           </SafeAreaProvider>
     );
 }
 

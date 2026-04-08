@@ -6,6 +6,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
@@ -35,85 +36,88 @@ export default function EsimConfirm() {
     });
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Confirmation"/>
-                <View style={styles.container1}>
-                    <Animated.View style={[styles.container2, { height: animatedHeight }]}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Confirmation"/>
+                    <View style={styles.container1}>
+                        <Animated.View style={[styles.container2, { height: animatedHeight }]}>
 
-                        <Animated.ScrollView
-                            showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{ flexGrow: 1, paddingBottom: verticalScale(20) }}
-                            scrollEventThrottle={16}
-                            onScroll={Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-                                { useNativeDriver: false }
-                            )}
-                        >
-                                <View style={styles.amount}>
-                                    <Text style={styles.amountSmall}>Paiement de facture</Text>
-                                    <View style={styles.euro}>
-                                        <Text style={styles.amountSmall}>{name}</Text>
-                                        <Text style={styles.amountBig}>{euro}</Text>
-                                    </View>
-                                
-                                    <View style={styles.montantEnvoie}>
-                                        <Text style={styles.textEnvoie}>Montant à payer</Text>
-                                    </View>
-                                
-                                    <Text style={styles.amountBig}>{gnf} GNF</Text>
-                                </View>
-
-                                <View style={styles.separator} />
-
-                                <View style={styles.benef}>
-                                    <Text style={styles.benefTitle}>Bénéficiare</Text>
-                                    <View style={styles.info}>
-                                        <View style={styles.iconUser}>
-                                            <FontAwesome6 name="user" size={moderateScale(20)} color="#2A4793"/>
+                            <Animated.ScrollView
+                                showsVerticalScrollIndicator={false}
+                                contentContainerStyle={{ flexGrow: 1, paddingBottom: verticalScale(20) }}
+                                scrollEventThrottle={16}
+                                onScroll={Animated.event(
+                                    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                                    { useNativeDriver: false }
+                                )}
+                            >
+                                    <View style={styles.amount}>
+                                        <Text style={styles.amountSmall}>Paiement de facture</Text>
+                                        <View style={styles.euro}>
+                                            <Text style={styles.amountSmall}>{name}</Text>
+                                            <Text style={styles.amountBig}>{euro}</Text>
                                         </View>
-                                        <View style={styles.nameDate}>
-                                            <Text style={styles.name}>{nom}</Text>
-                                            <Text style={styles.name}>{email}</Text>
-                                            <Text style={styles.date}>{date}</Text>
+                                    
+                                        <View style={styles.montantEnvoie}>
+                                            <Text style={styles.textEnvoie}>Montant à payer</Text>
+                                        </View>
+                                    
+                                        <Text style={styles.amountBig}>{gnf} GNF</Text>
+                                    </View>
+
+                                    <View style={styles.separator} />
+
+                                    <View style={styles.benef}>
+                                        <Text style={styles.benefTitle}>Bénéficiare</Text>
+                                        <View style={styles.info}>
+                                            <View style={styles.iconUser}>
+                                                <FontAwesome6 name="user" size={moderateScale(20)} color="#2A4793"/>
+                                            </View>
+                                            <View style={styles.nameDate}>
+                                                <Text style={styles.name}>{nom}</Text>
+                                                <Text style={styles.name}>{email}</Text>
+                                                <Text style={styles.date}>{date}</Text>
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
-                                
-                        </Animated.ScrollView>
-                    </Animated.View>
-                    <View style={styles.inputWrapper}>
-                        <TextInput
-                            style={styles.input} 
-                            placeholder="Code PIN Ex:1234"
-                            keyboardType="numeric"
-                            secureTextEntry={hidden}
-                            value={codePin}
-                            onChangeText={setCodePin}
-                        />
-                        <TouchableOpacity onPress={() => setHidden(!hidden)}>
-                            <FontAwesome6 
-                                name={hidden ? "eye-slash" : "eye"} 
-                                style={styles.icon}
-                                size={20}
+                                    
+                            </Animated.ScrollView>
+                        </Animated.View>
+                        <View style={styles.inputWrapper}>
+                            <TextInput
+                                style={styles.input} 
+                                placeholder="Code PIN Ex:1234"
+                                keyboardType="numeric"
+                                secureTextEntry={hidden}
+                                value={codePin}
+                                onChangeText={setCodePin}
                             />
-                            </TouchableOpacity>
-                    </View>
+                            <TouchableOpacity onPress={() => setHidden(!hidden)}>
+                                <FontAwesome6 
+                                    name={hidden ? "eye-slash" : "eye"} 
+                                    style={styles.icon}
+                                    size={20}
+                                />
+                                </TouchableOpacity>
+                        </View>
 
-                    <View style={styles.button}>
-                        <TouchableOpacity
-                            style={styles.annuler}
-                            onPress={() => navigation.goBack()}
-                        >
-                            <Text style={styles.annulerText}>Annuler</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.confirmer}
-                        >
-                            <Text style={styles.confirmerText}>Confirmer</Text>
-                        </TouchableOpacity>
+                        <View style={styles.button}>
+                            <TouchableOpacity
+                                style={styles.annuler}
+                                onPress={() => navigation.goBack()}
+                            >
+                                <Text style={styles.annulerText}>Annuler</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.confirmer}
+                            >
+                                <Text style={styles.confirmerText}>Confirmer</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-        </View>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

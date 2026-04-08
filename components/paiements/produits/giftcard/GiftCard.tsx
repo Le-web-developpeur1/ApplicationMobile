@@ -32,31 +32,34 @@ export default function GiftCard() {
   );
 
   return (
-    <View style={{ flex: 1 }}>
-        <Header title="Gift Card"/>
-        <SafeAreaView style={styles.safe}>
-            <Text style={styles.subtitle}>Veuillez choisir un Pays</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+      <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+          <Header title="Gift Card"/>
+          <SafeAreaView style={styles.safe}>
+              <Text style={styles.subtitle}>Veuillez choisir un Pays</Text>
 
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Nom du Pays"
-                value={search}
-                onChangeText={setSearch}
-            />
+              <TextInput
+                  style={styles.searchInput}
+                  placeholder="Nom du Pays"
+                  value={search}
+                  onChangeText={setSearch}
+              />
 
-            <ScrollView style={styles.list}>
-                {filteredCountries.map((country, index) => (
-                <TouchableOpacity 
-                    key={index} 
-                    style={styles.item}
-                    onPress={() => navigation.navigate("GiftCardService", { country })}
-                >
-                    <Text style={styles.itemText}>{country}</Text>
-                </TouchableOpacity>
-                ))}
-            </ScrollView>
-        </SafeAreaView>
-    </View>
+              <ScrollView style={styles.list}>
+                  {filteredCountries.map((country, index) => (
+                  <TouchableOpacity 
+                      key={index} 
+                      style={styles.item}
+                      onPress={() => navigation.navigate("GiftCardService", { country })}
+                  >
+                      <Text style={styles.itemText}>{country}</Text>
+                  </TouchableOpacity>
+                  ))}
+              </ScrollView>
+          </SafeAreaView>
+      </View>
+    </SafeAreaView>
+
   );
 }
 

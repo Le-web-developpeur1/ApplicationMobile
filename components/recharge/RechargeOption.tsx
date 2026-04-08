@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import Header from "../Headers";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -21,30 +22,32 @@ export default function RechargeOption() {
     const navigation = useNavigation<NavigationProp>();
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Rechargement par"/>
-            <View style={styles.container}>
-           <ScrollView 
-                showsVerticalScrollIndicator={false}
-            >
-                <View style={styles.grid}>
-                    {paiementService.map((service, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            style={styles.item}
-                            onPress={() => navigation.navigate(service.route)}
-                        >
-                            <View style={styles.icon}>
-                                <FontAwesome6 name={service.name} color='white'/>
-                            </View>
-                            <Text style={styles.itemText}>{service.label}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-           </ScrollView>  
-        </View>
-        </View>
-        
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Rechargement par"/>
+                <View style={styles.container}>
+            <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                >
+                    <View style={styles.grid}>
+                        {paiementService.map((service, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={styles.item}
+                                onPress={() => navigation.navigate(service.route)}
+                            >
+                                <View style={styles.icon}>
+                                    <FontAwesome6 name={service.name} color='white'/>
+                                </View>
+                                <Text style={styles.itemText}>{service.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+            </ScrollView>  
+            </View>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

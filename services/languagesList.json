@@ -1,0 +1,18 @@
+ {
+    "fr": {
+      "name": "French",
+      "nativeName": "Français"
+    },
+    "en": {
+      "name": "English",
+      "nativeName": "English"
+    },
+    "es": {
+      "name": "Spanish",
+      "nativeName": "Español"
+    },
+    "ar": {
+      "name": "Arabic",
+      "nativeName": "العربية"
+    }
+  }

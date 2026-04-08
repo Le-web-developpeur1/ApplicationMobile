@@ -7,6 +7,7 @@ import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { handleContactsPermission } from "@/utils/permissionHandler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -36,7 +37,8 @@ export default function DetailBeneficiareOm() {
 
     
     return (
-        <View style={{ flex: 1}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
                     <Header title={headerTitle}/>
                     <KeyboardAvoidingView
                         style={{ flex: 1 }}
@@ -89,7 +91,8 @@ export default function DetailBeneficiareOm() {
                     </View>
                     </ScrollView>
                     </KeyboardAvoidingView>
-                </View>
+            </View>
+        </SafeAreaView>
     );
 }
 

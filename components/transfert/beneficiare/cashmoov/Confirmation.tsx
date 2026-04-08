@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import Header from "../../../Headers";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -32,7 +33,8 @@ export default function Confirmation() {
         };
         
     return (
-        <View style={{ flex: 1}}>
+       <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+             <View style={{ flex: 1, backgroundColor: "F3F4F6"}}>
             <Header title="Confirmation"/>
             <View style={styles.container1}>
                <View style={styles.container2}>
@@ -97,6 +99,7 @@ export default function Confirmation() {
             </View>
             
         </View>
+       </SafeAreaView>
     );
 }
 

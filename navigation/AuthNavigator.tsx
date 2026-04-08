@@ -8,6 +8,7 @@ import Onboarding3 from "@/screen/onboarding/Onboarding3";
 import PhoneScreen from "@/screen/auth/PhoneScreen";
 import PinScreen from "@/screen/auth/PinScreen";
 import RegisterScreen from "@/screen/auth/RegisterScreen";
+import  Pin  from '@/screen/auth/Pin';
 
 type AuthNavigatorProps = { 
     setIsLoggedIn: (value: boolean) => void; 
@@ -17,7 +18,7 @@ const Stack = createStackNavigator();
 
 export default function AuthNavigator({ setIsLoggedIn}: AuthNavigatorProps) {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade' }}>
             <Stack.Screen name="Onboarding1" component={Onboarding1}/>
             <Stack.Screen name="Onboarding2" component={Onboarding2}/>
             <Stack.Screen name="Onboarding3" component={Onboarding3}/>
@@ -25,10 +26,10 @@ export default function AuthNavigator({ setIsLoggedIn}: AuthNavigatorProps) {
             <Stack.Screen name="Phone" component={PhoneScreen}/>
 
             <Stack.Screen name="Pin">
-                {(props: any) => <PinScreen {...props} setIsLoggedIn ={setIsLoggedIn}/>}
+                {(props: any) => <Pin {...props} setIsLoggedIn ={setIsLoggedIn}/>}
             </Stack.Screen>
 
             <Stack.Screen name="Register" component={RegisterScreen}/>
         </Stack.Navigator>
-    )
+    );
 }

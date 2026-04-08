@@ -24,7 +24,7 @@ export default function AppNavigator() {
           } else if (route.name === "Services") {
             iconName = focused ? "swap-horizontal" : "swap-horizontal-outline";
           } else if (route.name === "Notifications") {
-            iconName = focused ? "notifications" : "notifications-outline";
+            iconName = focused ? "time" : "time-outline";
           } else if (route.name === "Profil") {
             iconName = focused ? "person" : "person-outline";
           }
@@ -54,7 +54,7 @@ export default function AppNavigator() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: "absolute",
-          bottom: Platform.OS === "ios" ? verticalScale(19) : verticalScale(40),
+          bottom: Platform.OS === "ios" ? verticalScale(27.5) : verticalScale(51),
           marginLeft: scale(20),
           marginRight: scale(20),
           borderRadius: moderateScale(50),

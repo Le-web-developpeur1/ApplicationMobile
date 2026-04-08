@@ -4,6 +4,7 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { RootStackParamList } from "@/navigation/types";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
@@ -38,25 +39,28 @@ export default function OptionTransfert() {
 
 
     return (
-        <View style={{ flex: 1}}>
-            <Header title="Transfert International"/>
-            <ScrollView>
-                <View style={styles.container}>
-                    {available.length > 0 ? (
-                        available.map((s, i) => (
-                            <View key={i} style={{ flexDirection: 'column'}}>
-                                <TouchableOpacity onPress={() => navigation.navigate(s.screen, {country})}>
-                                    <Image source={s.logo} style={styles.image}/>
-                                </TouchableOpacity>
-                                <Text style={styles.text}>{s.name}</Text>
-                            </View>
-                        ))
-                    ) : (
-                        <Text style={styles.noService}>Aucun service disponible pour {country}</Text>
-                    )}
-                </View>
-            </ScrollView>
-        </View>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Transfert International"/>
+                <ScrollView>
+                    <View style={styles.container}>
+                        {available.length > 0 ? (
+                            available.map((s, i) => (
+                                <View key={i} style={{ flexDirection: 'column'}}>
+                                    <TouchableOpacity onPress={() => navigation.navigate(s.screen, {country})}>
+                                        <Image source={s.logo} style={styles.image}/>
+                                    </TouchableOpacity>
+                                    <Text style={styles.text}>{s.name}</Text>
+                                </View>
+                            ))
+                        ) : (
+                            <Text style={styles.noService}>Aucun service disponible pour {country}</Text>
+                        )}
+                    </View>
+                </ScrollView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

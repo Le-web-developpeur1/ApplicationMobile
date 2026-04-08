@@ -3,86 +3,91 @@ import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PasswordChange() {
 
     const [codePin, setCodePin] = useState("");
     const [hidden, setHidden] = useState(true);
+    const [hidden1, setHidden1] = useState(true);
+    const [hidden2, setHidden2] = useState(true);
 
     return (
-        <View style={{ flex: 1}}>
-            <Header title="Changer de code PIN"/>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "android" ? "height" : "padding"}
-            >
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Changer de code PIN"/>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === "android" ? "height" : "padding"}
                 >
-                   <View style={styles.container}>
-                        <Text style={styles.text}>Veuillez saisir l'ancien code PIN et le nouveau code PIN pour changer votre code PIN</Text>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input} 
-                                placeholder="Entrez votre ancien code PIN"
-                                keyboardType="numeric"
-                                secureTextEntry={hidden}
-                                value={codePin}
-                                onChangeText={setCodePin}
-                            />
-                            <TouchableOpacity onPress={() => setHidden(!hidden)}>
-                                <FontAwesome6 
-                                    name={hidden ? "eye-slash" : "eye"} 
-                                    style={styles.icon}
-                                    size={20}
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+                    >
+                    <View style={styles.container}>
+                            <Text style={styles.text}>Veuillez saisir l'ancien code PIN et le nouveau code PIN pour changer votre code PIN</Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input} 
+                                    placeholder="Entrez votre ancien code PIN"
+                                    keyboardType="numeric"
+                                    secureTextEntry={hidden}
+                                    value={codePin}
+                                    onChangeText={setCodePin}
                                 />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input} 
-                                placeholder="Entrez votre nouveau code PIN"
-                                keyboardType="numeric"
-                                secureTextEntry={hidden}
-                                value={codePin}
-                                onChangeText={setCodePin}
-                            />
-                            <TouchableOpacity onPress={() => setHidden(!hidden)}>
-                                <FontAwesome6 
-                                    name={hidden ? "eye-slash" : "eye"} 
-                                    style={styles.icon}
-                                    size={20}
+                                <TouchableOpacity onPress={() => setHidden(!hidden)}>
+                                    <FontAwesome6 
+                                        name={hidden ? "eye-slash" : "eye"} 
+                                        style={styles.icon}
+                                        size={20}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input} 
+                                    placeholder="Entrez votre nouveau code PIN"
+                                    keyboardType="numeric"
+                                    secureTextEntry={hidden1}
+                                    value={codePin}
+                                    onChangeText={setCodePin}
                                 />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input} 
-                                placeholder="Confirmer votre nouveau code PIN"
-                                keyboardType="numeric"
-                                secureTextEntry={hidden}
-                                value={codePin}
-                                onChangeText={setCodePin}
-                            />
-                            <TouchableOpacity onPress={() => setHidden(!hidden)}>
-                                <FontAwesome6 
-                                    name={hidden ? "eye-slash" : "eye"} 
-                                    style={styles.icon}
-                                    size={20}
+                                <TouchableOpacity onPress={() => setHidden1(!hidden1)}>
+                                    <FontAwesome6 
+                                        name={hidden1 ? "eye-slash" : "eye"} 
+                                        style={styles.icon}
+                                        size={20}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input} 
+                                    placeholder="Confirmer votre nouveau code PIN"
+                                    keyboardType="numeric"
+                                    secureTextEntry={hidden2}
+                                    value={codePin}
+                                    onChangeText={setCodePin}
                                 />
+                                <TouchableOpacity onPress={() => setHidden2(!hidden2)}>
+                                    <FontAwesome6 
+                                        name={hidden2 ? "eye-slash" : "eye"} 
+                                        style={styles.icon}
+                                        size={20}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity
+                                style={styles.confirmer}
+                            >
+                                <Text style={styles.confirmerText}>Confirmer</Text>
                             </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity
-                            style={styles.confirmer}
-                        >
-                            <Text style={styles.confirmerText}>Confirmer</Text>
-                        </TouchableOpacity>
-                   </View>
+                    </View>
 
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
     );
 }
 

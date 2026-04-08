@@ -1,35 +1,20 @@
 import { View, Text, TouchableOpacity, StyleSheet, Button, ActivityIndicator, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { responsiveWidth, responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions/src/index';
+import { scale, verticalScale } from "react-native-size-matters";
 
 
 
 export default function Onboarding2({navigation}) {
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [data, setData] = useState(null)
-
-    // const fetchData = async () => {
-    //     setIsLoading(true);
-    //     const response = await fetch("https://fakestoreapi.com/users/1",);
-    //     const data = await response.json();
-    //     console.log(data);
-    //     setData(data);
-    //     setIsLoading(false);
-    // }
 
     return (
         <SafeAreaView style={styles.safe}>
             <View style={styles.container}>
-                {/* {isLoading ? <ActivityIndicator size={100}/> : null} */}
-              
-                <Text style={styles.title}>Achat de crédits</Text>  
-                {/* <Button title="Récuperer un utilisateur" onPress={fetchData}/>  */}
-                {/* {data ? 
-               <View>
-                     <Text style={styles.title}>Nom d'utilisateur : {data.username}</Text>
-                     <Text style={styles.title}>Email : {data.email}</Text>
-               </View> : null}  */}
+                <View style={styles.cart}>
+                    <FontAwesome5 name="shopping-cart"  color={"#2A4793"} size={scale(230)} style={styles.cartMerchand}/>
+                </View>
+                <Text style={styles.title}>Paiements</Text>  
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Onboarding3")}>
                     <Text style={styles.buttonText}>Continuer</Text>
                 </TouchableOpacity>          
@@ -73,8 +58,16 @@ const styles = StyleSheet.create({
         color: "#2A4793",
         marginBottom: responsiveHeight(1.5),
         fontWeight: "900",
-        fontSize: responsiveFontSize(3.5),
+        fontSize: Platform.OS === "android"
+        ? responsiveFontSize(5)
+        : responsiveFontSize(4.4),
         marginLeft: responsiveWidth(3),
-        
+    },
+    cart: {
+        flex: 1,
+        marginTop: verticalScale(30),
+    },
+    cartMerchand: {
+        transform: [{ scaleX: -1 }] 
     }
 })

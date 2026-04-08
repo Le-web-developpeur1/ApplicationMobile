@@ -13,14 +13,16 @@ const transactionsReussies = [
         type: "Transfert d'argent",
         amount: "600 000 GNF",
         date: "01 Février 2026",
-        status: "réussie"
+        status: "réussie",
+        phone: "626058033",
     },
     {
         name: "Fodé Douno",
-        type: "Transfert d'argent",
+        type: "Reception Orange Money",
         amount: "849 000 GNF",
         date: "02 Février 2026",
-        status: "réussie"
+        status: "réussie",
+        phone: "626058033",
     },
 ];
 const transactionsEncours = [
@@ -29,14 +31,16 @@ const transactionsEncours = [
         type: "Transfert d'argent",
         amount: "1 200 000 GNF",
         date: "28 Janvier 2026",
-        status: "en attente"
+        status: "en attente",
+        phone: "626058033",
     },
     {
         name: "Alphonse Kaman",
         type: "Transfert d'argent",
         amount: "599 000 GNF",
         date: "21 Décembre 2025",
-        status: "en attente"
+        status: "en attente",
+        phone: "626058033",
     },
 ];
 
@@ -87,7 +91,18 @@ const RecentTransactions = () => {
             </View>
 
             {data.map((item, index) => (
-              <TouchableOpacity key={index} style={styles.item}>
+              <TouchableOpacity 
+                key={index} 
+                style={styles.item}
+                onPress={() => navigation.navigate("RecuTransaction", {
+                  name: item.name,
+                  phone: item.phone,
+                  amount: item.amount,
+                  date: item.date,
+                  type: item.type,
+                  status: item.status,
+                })}
+              >
                 <View style={styles.avatar}/>
 
                 <View style={styles.info}>

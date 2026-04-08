@@ -1,13 +1,16 @@
 import { View } from "react-native";
 import Header from "@/components/Headers";
 import FraisSection from "@/components/profil/frais/FraisSection";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function FraisScreen() {
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Frais de service"/>
-            <FraisSection/>
-        </View>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Frais de service"/>
+                <FraisSection/>
+            </View>
+        </SafeAreaView>
     )
 }

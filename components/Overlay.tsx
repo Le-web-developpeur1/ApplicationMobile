@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 
-export const Overlay = () => {
+const Overlay = () => {
 
     console.log("Overlay mounted");
 
@@ -18,5 +18,7 @@ export const Overlay = () => {
         >
             <MaterialCommunityIcons name="rocket-launch-outline" size={100} color="white"/>
         </View>
-    )
+    );
 }
+
+export default Overlay;

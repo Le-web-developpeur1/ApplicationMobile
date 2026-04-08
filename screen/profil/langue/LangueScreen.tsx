@@ -2,38 +2,51 @@ import Header from "@/components/Headers";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LangueScreen() {
-    const [checked, setChecked] = useState(false);
+    const [selectedLang, setSelectedLang] = useState<"en" | "fr">("fr");
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Changer de langue"/>
-            <View style={styles.container}>
-                <View style={styles.row}>
-                    <TouchableOpacity onPress={() => setChecked(!checked)}>
-                        <View style={[styles.checkbox, checked && styles.checked]}>
-                            {checked && <View style={styles.innerDot}/>}
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.text}>Français</Text>
-                </View>
-                <View style={styles.row}>
-                    <TouchableOpacity onPress={() => setChecked(!checked)}>
-                        <View style={[styles.checkbox, checked && styles.checked]}>
-                            {checked && <View style={styles.innerDot}/>}
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.text}>Anglais</Text>
-                </View>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Changer de langue"/>
+                <View style={styles.container}>
+                    <View style={styles.row}>
+                        <TouchableOpacity onPress={() => setSelectedLang("fr")}>
+                            <View style={styles.checkbox}>
+                                {selectedLang === "fr" && <Ionicons name="checkmark" size={scale(15)} color={"#2A4793"}/>}
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={styles.text}>Français</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <TouchableOpacity onPress={() => setSelectedLang("en")}>
+                            <View style={styles.checkbox}>
+                                {selectedLang === "en" && <Ionicons name="checkmark" size={scale(15)} color={"#2A4793"}/>}
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={styles.text}>Anglais</Text>
+                    </View>
 
+                </View>
+                <TouchableOpacity 
+                    style={[
+                        styles.button,
+                        !selectedLang && { backgroundColor: "#ccc"}
+                    ]}
+                    disabled={!selectedLang}
+                    // onPress={() => {
+                    //     if (selectedLang) {
+                    //         i18n.locale = selectedLang;
+                    //     }
+                    // }}
+                >
+                    <Text style={styles.buttonText}>Changer de langue</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity 
-                style={styles.button}
-            >
-                <Text style={styles.buttonText}>Changer de langue</Text>
-            </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -66,10 +79,7 @@ const styles = StyleSheet.create({
         backgroundClip: "#2A4793",
     },
     innerDot: {
-        width: scale(2.5),
-        height: verticalScale(2.5),
-        backgroundColor: "white",
-        borderRadius: moderateScale(1),
+        fontWeight: "bold"
     },
     text: {
         fontSize: moderateScale(18),

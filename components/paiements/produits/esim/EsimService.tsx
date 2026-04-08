@@ -5,6 +5,7 @@ import { RootStackParamList } from "@/navigation/types";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
@@ -41,35 +42,38 @@ export default function ESimService() {
     );
 
     return (
-        <View style={{ flex: 1}}>
-            <Header title="E-Sim"/>
-            <ScrollView>
-                <View  style={{ flex: 1 }}>
-                    <View style={styles.viewInput}>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder="Rechercher"
-                            value={search}
-                            onChangeText={setSearch}
-                        />
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="E-Sim"/>
+                <ScrollView>
+                    <View  style={{ flex: 1 }}>
+                        <View style={styles.viewInput}>
+                            <TextInput
+                                style={styles.searchInput}
+                                placeholder="Rechercher"
+                                value={search}
+                                onChangeText={setSearch}
+                            />
+                        </View>
+                        <View style={styles.container}>
+                            {filteredServices.length > 0 ? (
+                                filteredServices.map((s, i) => (
+                                    <View key={i} style={{ flexDirection: 'column'}}>
+                                        <TouchableOpacity onPress={() => navigation.navigate(s.screen as any, {country, logo: s.logo, name: s.name})}>
+                                            <Image source={s.logo} style={styles.image}/>
+                                        </TouchableOpacity>
+                                        <Text style={styles.text}>{s.name}</Text>
+                                    </View>
+                                ))
+                                ) : (
+                                    <Text style={styles.noService}>Aucun service disponible pour {country}</Text>
+                                )}
+                        </View>
                     </View>
-                    <View style={styles.container}>
-                        {filteredServices.length > 0 ? (
-                            filteredServices.map((s, i) => (
-                                <View key={i} style={{ flexDirection: 'column'}}>
-                                    <TouchableOpacity onPress={() => navigation.navigate(s.screen as any, {country, logo: s.logo, name: s.name})}>
-                                        <Image source={s.logo} style={styles.image}/>
-                                    </TouchableOpacity>
-                                    <Text style={styles.text}>{s.name}</Text>
-                                </View>
-                            ))
-                            ) : (
-                                <Text style={styles.noService}>Aucun service disponible pour {country}</Text>
-                            )}
-                    </View>
-                </View>
-            </ScrollView>
-        </View>
+                </ScrollView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

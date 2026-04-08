@@ -7,6 +7,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { handleContactsPermission } from "@/utils/permissionHandler";
 import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type DetailMarchandRouteProp = RouteProp<RootStackParamList, "DetailMarchand">;
@@ -22,74 +23,77 @@ export default function DetailMarchand() {
     const [name, setName] = useState(route.params?.name || "");
     
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Paiement marchand"/>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-                <ScrollView
-                  style={{ flex: 1 }}
-                  contentContainerStyle={{ marginBottom: verticalScale(20)}}
-                  showsVerticalScrollIndicator={false}  
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Paiement marchand"/>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Détails du marchand</Text>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Numéro du point de vente"
-                                keyboardType="phone-pad"
-                                value={phone}
-                                onChangeText={setPhone}
-                            />
+                    <ScrollView
+                    style={{ flex: 1 }}
+                    contentContainerStyle={{ marginBottom: verticalScale(20)}}
+                    showsVerticalScrollIndicator={false}  
+                    >
+                        <View style={styles.container}>
+                            <Text style={styles.title}>Détails du marchand</Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Numéro du point de vente"
+                                    keyboardType="phone-pad"
+                                    value={phone}
+                                    onChangeText={setPhone}
+                                />
+                                <TouchableOpacity
+                                    onPress={() => handleContactsPermission(navigation, "DetailMarchand")}
+                                >
+                                    <FontAwesome6 name="user" size={moderateScale(20)} style={styles.icon} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Prenom"
+                                    value={name}
+                                    onChangeText={setName}
+                                />
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Montant"
+                                    value={amount}
+                                    onChangeText={setAmount}
+                                />
+                                <Text style={styles.icon}>GNF</Text>
+                            </View>
                             <TouchableOpacity
-                                onPress={() => handleContactsPermission(navigation, "DetailMarchand")}
+                                style={styles.confirmer}
+                                onPress={() => navigation.navigate("ConfirmMarchand", {
+                                    name,
+                                    phone,
+                                    amount
+                                })}
                             >
-                                <FontAwesome6 name="user" size={moderateScale(20)} style={styles.icon} />
+                                <Text style={styles.confirmerText}>Payer</Text>
                             </TouchableOpacity>
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Prenom"
-                                value={name}
-                                onChangeText={setName}
-                            />
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Montant"
-                                value={amount}
-                                onChangeText={setAmount}
-                            />
-                            <Text style={styles.icon}>GNF</Text>
-                        </View>
-                        <TouchableOpacity
-                            style={styles.confirmer}
-                            onPress={() => navigation.navigate("ConfirmMarchand", {
-                                name,
-                                phone,
-                                amount
-                            })}
-                        >
-                            <Text style={styles.confirmerText}>Payer</Text>
-                        </TouchableOpacity>
 
-                        <View style={styles.option}>
-                            <TouchableOpacity 
-                               style={styles.iconWrapper}
-                               onPress={() => navigation.navigate("QrScanner")}
-                            >
-                                <MaterialIcons name="qr-code-scanner" size={moderateScale(80)} color= "#2A4793"/>
-                            </TouchableOpacity>
+                            <View style={styles.option}>
+                                <TouchableOpacity 
+                                style={styles.iconWrapper}
+                                onPress={() => navigation.navigate("QrScanner")}
+                                >
+                                    <MaterialIcons name="qr-code-scanner" size={moderateScale(80)} color= "#2A4793"/>
+                                </TouchableOpacity>
+                            </View>
+                            <Text style={styles.scan}>Scanner pour payer</Text>
                         </View>
-                        <Text style={styles.scan}>Scanner pour payer</Text>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

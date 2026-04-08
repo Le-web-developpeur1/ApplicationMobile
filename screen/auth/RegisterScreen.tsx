@@ -6,6 +6,8 @@ import  DropDownPicker  from "react-native-dropdown-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useRegisterDropdowns } from "@/constants/dropdowns";
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions/src";
+import { Ionicons } from "@expo/vector-icons";
+import { moderateScale } from "react-native-size-matters";
 
 export default function RegisterScreen({navigation}) {
     const [checked, setChecked] = useState(false);
@@ -137,7 +139,7 @@ export default function RegisterScreen({navigation}) {
                     <View style={styles.row}>
                         <TouchableOpacity onPress={() => setChecked(!checked)}>
                             <View style={[styles.checkbox, checked && styles.checkedBox]}>
-                                {checked && <View  style={styles.innerDot}/>}
+                                {checked && <Ionicons name="checkmark" color={"white"} size={moderateScale(13)}/>}
                             </View>
                         </TouchableOpacity>
 
@@ -191,8 +193,7 @@ const styles = StyleSheet.create({
         marginBottom: responsiveHeight(2),
         width: responsiveWidth(85),
         paddingHorizontal: responsiveWidth(2),
-      }
-      ,
+    },
     checkbox: {
         width: responsiveWidth(5),
         height: responsiveWidth(5),
@@ -205,12 +206,7 @@ const styles = StyleSheet.create({
     },
     checkedBox: {
         backgroundColor: "#2A4793",
-    },
-    innerDot: {
-        width: responsiveWidth(2.5),
-        height: responsiveWidth(2.5),
-        backgroundColor: "white",
-        borderRadius: responsiveWidth(1),
+        
     },
     text: {
         fontSize: responsiveFontSize(1.8),
@@ -266,5 +262,4 @@ const styles = StyleSheet.create({
     dropdownItemLabel: { 
         fontSize: responsiveFontSize(2), 
     },
-      
 });

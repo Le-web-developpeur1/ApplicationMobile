@@ -172,4 +172,28 @@ export type RootStackParamList = {
     About: undefined;
     PasswordChange: undefined;
     UpdatePicture: undefined;
+    TransactionsLimit: undefined;
+    FermetureCompte: undefined;
+    Disconnected: undefined;
+    Confidentialite: undefined;
+    RecuTransaction: {
+        name: string,
+        phone: string,
+        amount: string,
+        date: string,
+        type: string;
+        status: string;
+    };
+    WebScreen: {
+        url: string;
+    };
+    Notifications: undefined;
+    Profil: undefined;
 };
+
+export type TabParamList = {
+    Home: undefined;
+    Services: undefined;
+    Notifications: undefined;
+};
+  

@@ -5,6 +5,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import { scale, moderateScale, verticalScale } from "react-native-size-matters";
 import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function DetailPaiement() {
@@ -41,98 +42,100 @@ export default function DetailPaiement() {
     let placeholderTitle = typeFacture === "postpaye" ? "Entrez le numéro de la référence" : "Entrez le numéro du compteur";
 
   return (
-    <View style={{ flex: 1}}>
-        <Headers title={headerTitle}/>
-        <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-            <ScrollView
-                 style={{ flex: 1}} 
-                 contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+        <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+            <Headers title={headerTitle}/>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-                <View style={styles.container}>
-                    <Text style={styles.title}>Détails de la transaction</Text>
-                    <View style={styles.inputWrapper}>
-                        <TextInput
-                            style={styles.input}
-                            value="Guinée"
-                            editable={false}
-                        />
-                    </View>
-                    <View style={styles.inputWrapper}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder={placeholderTitle}
-                            value={numero}
-                            onChangeText={setNumero}
-                        />
-                    </View>
-
-                    {typeFacture === "postpaye" && inputShow && (
+                <ScrollView
+                    style={{ flex: 1}} 
+                    contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+                >
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Détails de la transaction</Text>
                         <View style={styles.inputWrapper}>
-                            <TouchableOpacity
+                            <TextInput
                                 style={styles.input}
-                                onPress={() => setDropdownOpen(!dropdownOpen)}
-                            >
-                                <Text>{selectedFacture || "Sélectionnez une facture"}</Text>
-                            </TouchableOpacity>
+                                value="Guinée"
+                                editable={false}
+                            />
                         </View>
-                    )}
+                        <View style={styles.inputWrapper}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={placeholderTitle}
+                                value={numero}
+                                onChangeText={setNumero}
+                            />
+                        </View>
 
-                    {dropdownOpen && (
-                        <View style={styles.dropdown}>
-                            {factures.map((facture, index) => (
+                        {typeFacture === "postpaye" && inputShow && (
+                            <View style={styles.inputWrapper}>
                                 <TouchableOpacity
-                                    key={index}
-                                    style={styles.dropdownItem}
-                                    onPress={() => {
-                                        setSelectedFacture(facture);
-                                        setDropdownOpen(false);
-                                    }}
+                                    style={styles.input}
+                                    onPress={() => setDropdownOpen(!dropdownOpen)}
                                 >
-                                    <Text>{facture}</Text>
+                                    <Text>{selectedFacture || "Sélectionnez une facture"}</Text>
                                 </TouchableOpacity>
-                            ))}
-                        </View>
-                    )}
+                            </View>
+                        )}
 
-                    {typeFacture === "postpaye" ? (
-                        <View style={styles.frais}>
-                            <Text style={styles.text}>Nom du client </Text>
-                            <Text style={styles.text}>Numéro de référence </Text>
-                            <Text style={styles.text}>Identifiant de facture </Text>
-                            <Text style={styles.text}>Montant </Text>
-                        </View>
-                    ) : (
-                        <View style={styles.frais}>
-                            <Text style={styles.text}>Nom du client </Text>
-                            <Text style={styles.text}>Code de référence </Text>
-                            <Text style={styles.text}>Numéro de l'appareil : {num}</Text>
-                        </View>
-                    )}
+                        {dropdownOpen && (
+                            <View style={styles.dropdown}>
+                                {factures.map((facture, index) => (
+                                    <TouchableOpacity
+                                        key={index}
+                                        style={styles.dropdownItem}
+                                        onPress={() => {
+                                            setSelectedFacture(facture);
+                                            setDropdownOpen(false);
+                                        }}
+                                    >
+                                        <Text>{facture}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        )}
 
-                    {inputShow ? (
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => navigation.navigate("DetailDebit", {
-                                headerTitle
-                            })}
-                        >
-                            <Text style={styles.buttonText}>Suivant</Text>
-                        </TouchableOpacity>
-                     ) : (
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={handleDetail}
-                        >
-                            <Text style={styles.buttonText}>Voir les détails</Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
-            </ScrollView>
-        </KeyboardAvoidingView>
-    </View>
+                        {typeFacture === "postpaye" ? (
+                            <View style={styles.frais}>
+                                <Text style={styles.text}>Nom du client </Text>
+                                <Text style={styles.text}>Numéro de référence </Text>
+                                <Text style={styles.text}>Identifiant de facture </Text>
+                                <Text style={styles.text}>Montant </Text>
+                            </View>
+                        ) : (
+                            <View style={styles.frais}>
+                                <Text style={styles.text}>Nom du client </Text>
+                                <Text style={styles.text}>Code de référence </Text>
+                                <Text style={styles.text}>Numéro de l'appareil : {num}</Text>
+                            </View>
+                        )}
+
+                        {inputShow ? (
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => navigation.navigate("DetailDebit", {
+                                    headerTitle
+                                })}
+                            >
+                                <Text style={styles.buttonText}>Suivant</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={handleDetail}
+                            >
+                                <Text style={styles.buttonText}>Voir les détails</Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </View>
+    </SafeAreaView>
   );
 }
 

@@ -5,6 +5,7 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { RootStackParamList } from "@/navigation/types";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
@@ -61,43 +62,46 @@ export default function GiftCardService() {
     );
 
     return (
-        <View style={{ flex: 1}}>
-            <Header title="Gift Card"/>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
+                <Header title="Gift Card"/>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
 
-            >
-                <View  style={{ flex: 1 }}>
-                    <View style={styles.viewInput}>
-                        <TextInput
-                            style={styles.searchInput}
-                            placeholder="Rechercher"
-                            value={searchQuery}
-                            onChangeText={setSearchQuery}
-                        />
-                    </View>
-                   
-                        <View style={styles.container}>
-                            {filteredServices.length > 0 ? (
-                                filteredServices.map((s, i) => (
-                                    <View key={i} style={{ flexDirection: 'column'}}>
-                                        <TouchableOpacity onPress={() => navigation.navigate(s.screen as any, {
-                                            country, 
-                                            name: s.name,
-                                            logo: s.logo,
-                                            })}>
-                                            <Image source={s.logo} style={styles.image}/>
-                                        </TouchableOpacity>
-                                        <Text style={styles.text}>{s.name}</Text>
-                                    </View>
-                                ))
-                            ) : (
-                                <Text style={styles.noService}>Aucun service disponible pour {country}</Text>
-                            )}
+                >
+                    <View  style={{ flex: 1 }}>
+                        <View style={styles.viewInput}>
+                            <TextInput
+                                style={styles.searchInput}
+                                placeholder="Rechercher"
+                                value={searchQuery}
+                                onChangeText={setSearchQuery}
+                            />
                         </View>
-                </View>
-            </ScrollView>
-        </View>
+                    
+                            <View style={styles.container}>
+                                {filteredServices.length > 0 ? (
+                                    filteredServices.map((s, i) => (
+                                        <View key={i} style={{ flexDirection: 'column'}}>
+                                            <TouchableOpacity onPress={() => navigation.navigate(s.screen as any, {
+                                                country, 
+                                                name: s.name,
+                                                logo: s.logo,
+                                                })}>
+                                                <Image source={s.logo} style={styles.image}/>
+                                            </TouchableOpacity>
+                                            <Text style={styles.text}>{s.name}</Text>
+                                        </View>
+                                    ))
+                                ) : (
+                                    <Text style={styles.noService}>Aucun service disponible pour {country}</Text>
+                                )}
+                            </View>
+                    </View>
+                </ScrollView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

@@ -1,11 +1,8 @@
 import Header from "@/components/Headers";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, StatusBar } from "react-native";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
-import { useRoute, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/navigation/types";
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
+import { useRoute } from "@react-navigation/native";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 const transactionsReussies = [
     {
@@ -149,33 +146,36 @@ export default function HistoriqueScreen() {
     const data = activTab === "reussies" ? transactionsReussies : transactionsEncours;
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Historique des transactions"/>
-            <ScrollView 
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: verticalScale(70)}}
-            >
-                <View style={styles.container}>
-                    {data.map((item, index) => (
-                        <View key={index} style={styles.item}>
-                            <View style={styles.avatar}/>
-                    
-                            <View style={styles.info}>
-                                <Text style={styles.name}>{item.name}</Text>
-                                <View style={{flexDirection:'row', gap: 5}}>
-                                    <Text style={styles.type}>{item.type}</Text>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793" }}>
+
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Historique des transactions"/>
+                <ScrollView 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: verticalScale(70)}}
+                >
+                    <View style={styles.container}>
+                        {data.map((item, index) => (
+                            <View key={index} style={styles.item}>
+                                <View style={styles.avatar}/>
+                        
+                                <View style={styles.info}>
+                                    <Text style={styles.name}>{item.name}</Text>
+                                    <View style={{flexDirection:'row', gap: 5}}>
+                                        <Text style={styles.type}>{item.type}</Text>
+                                    </View>
+                                </View>
+                        
+                                <View style={styles.right}>
+                                    <Text style={styles.amount}>{item.amount}</Text>
+                                    <Text style={styles.date}>{item.date}</Text>
                                 </View>
                             </View>
-                    
-                            <View style={styles.right}>
-                                <Text style={styles.amount}>{item.amount}</Text>
-                                <Text style={styles.date}>{item.date}</Text>
-                            </View>
-                        </View>
-                    ))}
-                </View>
-            </ScrollView>
-        </View>
+                        ))}
+                    </View>
+                </ScrollView>
+            </View>
+        </SafeAreaView>
     );
 }
 

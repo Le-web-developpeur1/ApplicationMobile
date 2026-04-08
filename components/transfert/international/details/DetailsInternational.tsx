@@ -8,6 +8,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { formatter } from "@/constants/formatter";
 import { handleContactsPermission } from "@/utils/permissionHandler";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type DetailsInterRouteProp = RouteProp<RootStackParamList, "DetailsInternational">;
 
@@ -60,7 +61,8 @@ export default function DetailsInternational() {
 
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+      <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
       <Header title="Transfert d'argent" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -153,6 +155,7 @@ export default function DetailsInternational() {
         </ScrollView>
       </KeyboardAvoidingView>
     </View>
+    </SafeAreaView>
   );
 }
 

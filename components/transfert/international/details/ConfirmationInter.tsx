@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Animated } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import Header from "../../../Headers";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -51,7 +52,8 @@ export default function ConfirmationInter() {
         })
         
     return (
-        <View style={{ flex: 1}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
             <Header title="Confirmation"/>
             <View style={styles.container1}>
                <Animated.View style={[styles.container2, { height: animatedHeight }]}>
@@ -149,10 +151,9 @@ export default function ConfirmationInter() {
                         </View>
                     </View>
                 )}
-
-             
             </View>
         </View>
+        </SafeAreaView>
     );
 }
 

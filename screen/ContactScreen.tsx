@@ -4,6 +4,7 @@ import { View, Text, FlatList, Alert, StyleSheet, TextInput, TouchableOpacity } 
 import Header from "@/components/Headers";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const ContactScreen = ({ route, navigation}) => {
   const [contacts, setContacts] = useState<any[]>([]);
@@ -57,40 +58,42 @@ const ContactScreen = ({ route, navigation}) => {
   }, [search, contacts]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#2A4793',}}>
       <Header title="Bénéficiaire" />
-      <View style={styles.container}>
-        <View style={styles.inputWrapper}>
-          <Ionicons name="search-outline" size={moderateScale(20)} style={styles.icon} />
-          <TextInput
-            style={styles.input}
-            placeholder="Rechercher"
-            value={search}
-            onChangeText={setSearch}
+      <View style={{flex: 1, backgroundColor: "#F3F4F6" }}>
+        <View style={styles.container}>
+          <View style={styles.inputWrapper}>
+            <Ionicons name="search-outline" size={moderateScale(20)} style={styles.icon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Rechercher"
+              value={search}
+              onChangeText={setSearch}
+            />
+          </View>
+          <FlatList
+            style={{ paddingHorizontal: scale(10), maxHeight: verticalScale(540)}}
+            data={filteredContact}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => ( 
+                  <TouchableOpacity style={styles.list} onPress={() => hadleSelectContact(item)}> 
+                      <View style={styles.avatar}> 
+                          <Text style={styles.avatarText}> 
+                              {item.name?.charAt(0).toUpperCase()} {item.name?.charAt(1).toUpperCase()} 
+                          </Text> 
+                      </View> 
+                      <View style={styles.textWrapper}> 
+                          <Text style={styles.name}>{item.name}</Text> 
+                          {item.phoneNumbers?.length > 0 && ( 
+                              <Text style={styles.number}>{item.phoneNumbers[0].number}</Text> 
+                          )} 
+                      </View> 
+                  </TouchableOpacity> 
+          )}
           />
         </View>
-        <FlatList
-          style={{ paddingHorizontal: scale(10)}}
-          data={filteredContact}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => ( 
-                <TouchableOpacity style={styles.list} onPress={() => hadleSelectContact(item)}> 
-                    <View style={styles.avatar}> 
-                        <Text style={styles.avatarText}> 
-                            {item.name?.charAt(0).toUpperCase()} {item.name?.charAt(1).toUpperCase()} 
-                        </Text> 
-                    </View> 
-                    <View style={styles.textWrapper}> 
-                        <Text style={styles.name}>{item.name}</Text> 
-                        {item.phoneNumbers?.length > 0 && ( 
-                            <Text style={styles.number}>{item.phoneNumbers[0].number}</Text> 
-                        )} 
-                    </View> 
-                </TouchableOpacity> 
-            )}
-        />
-      </View>
     </View>
+    </SafeAreaView>
   );
 };
 
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         justifyContent: "space-around",
-        marginTop: verticalScale(30),
+        marginTop: verticalScale(10),
         paddingHorizontal: scale(20),
     },
     inputWrapper: {

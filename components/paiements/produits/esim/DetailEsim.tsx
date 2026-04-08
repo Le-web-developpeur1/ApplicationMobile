@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 
@@ -33,45 +34,48 @@ export default function DetailGiftcard() {
    
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title={`${name}`}/>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-
-                <ScrollView 
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1, paddingBottom: verticalScale(20) }}
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title={`${name}`}/>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <View style={styles.container}>
-                        <View style={styles.contourImg}>
-                            <Image source={logo as any} style={styles.image}/>
-                            <Text style={styles.subtitle}>{country} - {name}</Text>
+
+                    <ScrollView 
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1, paddingBottom: verticalScale(20) }}
+                    >
+                        <View style={styles.container}>
+                            <View style={styles.contourImg}>
+                                <Image source={logo as any} style={styles.image}/>
+                                <Text style={styles.subtitle}>{country} - {name}</Text>
+                            </View>
+                            <Text style={styles.title}>Veuillez choisir un montant à acheter</Text>
+                            <View style={styles.fraisSection}>
+                                {cout.map((frais, index) => (
+                                    <TouchableOpacity 
+                                        key={index} 
+                                        style={styles.card}
+                                        onPress={() => navigation.navigate("EsimBenef", {
+                                            euro: frais.euro,
+                                            gnf: frais.gnf,
+                                            country,
+                                            name,
+                                        })}
+                                    >
+                                        <Text style={styles.mO}>{frais.mO}</Text>
+                                        <Text style={styles.cardEuro}>{frais.euro}</Text>
+                                        <Text style={styles.cardGnf}>{frais.gnf} GNF</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
                         </View>
-                        <Text style={styles.title}>Veuillez choisir un montant à acheter</Text>
-                        <View style={styles.fraisSection}>
-                            {cout.map((frais, index) => (
-                                <TouchableOpacity 
-                                    key={index} 
-                                    style={styles.card}
-                                    onPress={() => navigation.navigate("EsimBenef", {
-                                        euro: frais.euro,
-                                        gnf: frais.gnf,
-                                        country,
-                                        name,
-                                    })}
-                                >
-                                    <Text style={styles.mO}>{frais.mO}</Text>
-                                    <Text style={styles.cardEuro}>{frais.euro}</Text>
-                                    <Text style={styles.cardGnf}>{frais.gnf} GNF</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

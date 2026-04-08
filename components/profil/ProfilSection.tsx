@@ -5,13 +5,23 @@ import { scale, moderateScale, verticalScale } from "react-native-size-matters";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/navigation/types";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+// type ProfilItem = {
+//     label: string;
+//     name1: string;
+//     name2: string;
+//     route?: string;
+//     url?: string;   
+//     storeUrl?: {
+//       android: string;
+//       ios: string;
+//     }; 
+// };
 
-
-const profilInformation = [
+const profilInformation =  [
     {label: "Frais", name1: "wallet-outline", name2: "chevron-forward", route: "FraisScreen"},
     {label: "Point de service", name1: "location-outline", name2: "chevron-forward", route: "FraisScreen"},
     {label: "Modifier la langue", name1: "globe-outline", name2: "chevron-forward", route: "LangueScreen"},
-    {label: "Confidentialité", name1: "shield-checkmark-outline", name2: "chevron-forward", route: "FraisScreen"},
+    {label: "Confidentialité", name1: "shield-checkmark-outline", name2: "chevron-forward", route: "Confidentialite"},
     {label: "Recommander l'application", name1: "share-social-outline", name2: "chevron-forward", storeUrl: {
         android: "https://play.google.com/store/apps/details?id=com.estel.cashmoovsubscriberapp",
         ios: "https://apps.apple.com/us/app/cashmoov-client/id6642668233?l=fr-FR"
@@ -21,9 +31,9 @@ const profilInformation = [
     {label: "À propos", name1: "information-circle-outline", name2: "chevron-forward", route: "About"},
     {label: "Changer de code PIN", name1: "lock-closed-outline", name2: "chevron-forward", route: "PasswordChange"},
     {label: "Modifier la photo de profile", name1: "image-outline", name2: "chevron-forward", route: "UpdatePicture"},
-    {label: "Limites des transactions", name1: "contrast-outline", name2: "chevron-forward", route: "FraisScreen"},
-    {label: "Fermer le compte", name1: "alert-circle-outline", name2: "chevron-forward", route: "FraisScreen"},
-    {label: "Se déconnecter", name1: "log-out-outline", name2: "chevron-forward", route: "FraisScreen"},
+    {label: "Limites des transactions", name1: "contrast-outline", name2: "chevron-forward", route: "TransactionsLimit"},
+    {label: "Fermer le compte", name1: "alert-circle-outline", name2: "chevron-forward", route: "FermetureCompte"},
+    {label: "Se déconnecter", name1: "log-out-outline", name2: "chevron-forward", route: "Disconnected"},
   ];
   
 
@@ -35,7 +45,7 @@ export default function ProfilSection() {
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: verticalScale(120) }}
+            contentContainerStyle={{ paddingBottom: verticalScale(65) }}
         >
             <View style={styles.container}>
                 <View style={styles.profil}>
@@ -62,7 +72,7 @@ export default function ProfilSection() {
                                     const url = Platform.OS === "android" ? profil.storeUrl.android : profil.storeUrl.ios;
                                     Linking.openURL(url);
                                 } else if (profil.url) {
-                                    Linking.openURL(profil.url);
+                                    navigation.navigate("WebScreen", {url: profil.url});
                                 } else if (profil.route) {
                                     navigation.navigate(profil.route);
                                 }

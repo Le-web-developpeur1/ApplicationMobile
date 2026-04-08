@@ -5,6 +5,7 @@ import Header from "@/components/Headers";
 import { RootStackParamList } from "@/navigation/types";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -63,7 +64,8 @@ export default function DetailTransactions() {
     };
 
     return (
-        <View style={{ flex: 1}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6"}}>
             <Header title={headerTitle}/>
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
@@ -134,6 +136,7 @@ export default function DetailTransactions() {
             </ScrollView>
             </KeyboardAvoidingView>
         </View>
+        </SafeAreaView>
     );
 }
 

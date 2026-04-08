@@ -7,6 +7,7 @@ import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { handleContactsPermission } from "@/utils/permissionHandler";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type DetailCreditRouteProp = RouteProp<RootStackParamList, "CreditDetail">;
 
@@ -37,69 +38,71 @@ export default function CreditDetail() {
    ]
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Achat de crédits"/>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-                < ScrollView
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Achat de crédits"/>
+                <KeyboardAvoidingView
                     style={{ flex: 1 }}
-                    contentContainerStyle={{ marginBottom: verticalScale(20)}}
-                    showsVerticalScrollIndicator={false}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
+                    < ScrollView
+                        style={{ flex: 1 }}
+                        contentContainerStyle={{ marginBottom: verticalScale(20)}}
+                        showsVerticalScrollIndicator={false}
+                    >
 
-                    <View style={styles.container}>
-                        {showInput && (
+                        <View style={styles.container}>
+                            {showInput && (
+                                <View style={styles.inputWrapper}>
+                                    <TextInput
+                                    style={styles.input}
+                                    placeholder="Numéro du bénéficiaire"
+                                    keyboardType="phone-pad"
+                                    value={phone}
+                                    onChangeText={setPhone}
+                                    />
+                                    <TouchableOpacity
+                                    onPress={() => handleContactsPermission(navigation, "CreditDetail")}
+                                    >
+                                    <FontAwesome6 name="user" size={moderateScale(20)} style={styles.icon} />
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+
                             <View style={styles.inputWrapper}>
                                 <TextInput
-                                style={styles.input}
-                                placeholder="Numéro du bénéficiaire"
-                                keyboardType="phone-pad"
-                                value={phone}
-                                onChangeText={setPhone}
+                                    style={styles.input}
+                                    placeholder="Montant a envoyer"
+                                    value={amount}
+                                    onChangeText={setAmount}                   
                                 />
-                                <TouchableOpacity
-                                onPress={() => handleContactsPermission(navigation, "CreditDetail")}
-                                >
-                                <FontAwesome6 name="user" size={moderateScale(20)} style={styles.icon} />
-                                </TouchableOpacity>
+                                <Text style={styles.icon}>GNF</Text>
                             </View>
-                        )}
-
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Montant a envoyer"
-                                value={amount}
-                                onChangeText={setAmount}                   
-                            />
-                            <Text style={styles.icon}>GNF</Text>
-                        </View>
-                        <View style={styles.prixSection}>
-                            {credit.map((c, i)=> (
+                            <View style={styles.prixSection}>
+                                {credit.map((c, i)=> (
+                                    <TouchableOpacity
+                                        key={i}
+                                        style={styles.card}
+                                        onPress={() => setAmount(String(c.prix))}
+                                    >
+                                        <Text style={styles.cardGnf}>{c.prix} GNF</Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
                                 <TouchableOpacity
-                                    key={i}
-                                    style={styles.card}
-                                    onPress={() => setAmount(String(c.prix))}
+                                    style={styles.continuer}
+                                    onPress={() => navigation.navigate("CreditConfirm", {
+                                        phone,
+                                        amount,
+                                    })}
                                 >
-                                    <Text style={styles.cardGnf}>{c.prix} GNF</Text>
+                                    <Text style={styles.continuerText}>Continuer</Text>
                                 </TouchableOpacity>
-                            ))}
                         </View>
-                            <TouchableOpacity
-                                style={styles.continuer}
-                                onPress={() => navigation.navigate("CreditConfirm", {
-                                    phone,
-                                    amount,
-                                })}
-                            >
-                                <Text style={styles.continuerText}>Continuer</Text>
-                            </TouchableOpacity>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
     );
 }
 

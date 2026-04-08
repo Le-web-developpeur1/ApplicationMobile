@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { scale, moderateScale, verticalScale } from "react-native-size-matters";
@@ -39,10 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#2A4793",
     borderBottomWidth: moderateScale(1),
     borderBottomColor: "#eee",
-    height: verticalScale(130)
   },
   title: {
-    fontSize: moderateScale(20),
+    fontSize: Platform.OS === "android" ? moderateScale(22) : moderateScale(18),
     fontWeight: "bold",
     color: "#ffffff",
   },

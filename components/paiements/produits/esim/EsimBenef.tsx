@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function EsimBenef() {
@@ -23,72 +24,78 @@ export default function EsimBenef() {
 
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Détails du bénéficaire"/>
-            <KeyboardAvoidingView
-                 style={{ flex: 1 }}
-                 behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1, paddingBottom: verticalScale(20) }}
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Détails du bénéficaire"/>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Achat de eSim</Text>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                value={country}
-                                editable={false}
-                            />
-                        </View>
-                        <Text style={styles.subtitle}>eSim : {euro} </Text>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                value={gnf}
-                                editable={false}
-                            />
-                            <Text style={styles.icon}>GNF</Text>
-                        </View>
-                        <View style={styles.separator}/>
-                        <Text style={styles.title}>Détails du bénéficiaire</Text>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Prénom et Nom"
-                                value={nom}
-                                onChangeText={setNom}
-                            />
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Veuillez entrer l'adresse e-mail"
-                                value={email}
-                                onChangeText={setEmail}
-                            />
-                        </View>
-                        <Text style={{ color: "red", fontSize: moderateScale(9.5), marginTop: verticalScale(5)}}>Achat non remboursable et utilisable seulement par les comptes en :
-                            <Text style={{ fontWeight: "700",fontSize: moderateScale(11)}}>  {country}</Text>
-                        </Text>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{ flexGrow: 1, paddingBottom: verticalScale(20) }}
+                    >
+                        <View style={styles.container}>
+                            <Text style={styles.title}>Achat de eSim</Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={country}
+                                    editable={false}
+                                />
+                            </View>
+                            <Text style={styles.subtitle}>eSim : {euro} </Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={gnf}
+                                    editable={false}
+                                />
+                                <Text style={styles.icon}>GNF</Text>
+                            </View>
+                            <View style={styles.separator}/>
+                            <Text style={styles.title}>Détails du bénéficiaire</Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Prénom et Nom"
+                                    value={nom}
+                                    onChangeText={setNom}
+                                />
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Veuillez entrer l'adresse e-mail"
+                                    value={email}
+                                    onChangeText={setEmail}
+                                />
+                            </View>
+                            <View>
 
-                        <TouchableOpacity 
-                            style={styles.button}
-                            onPress={() => navigation.navigate("EsimConfirm", {
-                                euro, 
-                                gnf, 
-                                name,
-                                nom,
-                                email,
-                            })}
-                        >
-                            <Text style={styles.buttonText}>Acheter</Text>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                                <Text style={{ color: "red", fontSize: moderateScale(12), marginTop: verticalScale(10)}}>Achat non remboursable et utilisable seulement par les comptes en :
+                                    <Text style={{ fontWeight: "700", fontSize: moderateScale(16)}}>  {country}</Text>
+                                </Text>
+                            </View>
+
+                            <TouchableOpacity 
+                                style={styles.button}
+                                onPress={() => navigation.navigate("EsimConfirm", {
+                                    euro, 
+                                    gnf, 
+                                    name,
+                                    nom,
+                                    email,
+                                })}
+                            >
+                                <Text style={styles.buttonText}>Acheter</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 
@@ -140,7 +147,7 @@ const styles = StyleSheet.create({
         borderRadius: moderateScale(6),
         alignItems: "center",
         justifyContent: "center",
-        marginTop: verticalScale(18),
+        marginTop: verticalScale(22),
         marginLeft: scale(3),
         marginRight: scale(2),
     },

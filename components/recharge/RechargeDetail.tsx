@@ -5,6 +5,7 @@ import Header from "@/components/Headers";
 import { RootStackParamList } from "@/navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type DetailRetraitRouteProp = RouteProp<RootStackParamList, "RetraitDetail">;
@@ -21,69 +22,72 @@ export default function RechargeDetail() {
 
     
     return (
-        <View style={{ flex: 1 }}>
-            <Header title="Retrait Code"/>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-            >
-                <ScrollView
-                  style={{ flex: 1 }}
-                  contentContainerStyle={{ marginBottom: verticalScale(20)}}
-                  showsVerticalScrollIndicator={false}  
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+                <Header title="Retrait Code"/>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
-                    <View style={styles.container}>
-                        <Text style={styles.title}>Détails de l'agent</Text>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Numéro de téléphone"
-                                keyboardType="phone-pad"
-                                value={phone}
-                                onChangeText={setPhone}
-                            />
+                    <ScrollView
+                    style={{ flex: 1 }}
+                    contentContainerStyle={{ marginBottom: verticalScale(20)}}
+                    showsVerticalScrollIndicator={false}  
+                    >
+                        <View style={styles.container}>
+                            <Text style={styles.title}>Détails de l'agent</Text>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Numéro de téléphone"
+                                    keyboardType="phone-pad"
+                                    value={phone}
+                                    onChangeText={setPhone}
+                                />
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Nom du bénéficiaire*"
+                                    value={name}
+                                    onChangeText={setName}
+                                />
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Code de confirmation*"
+                                    value={code}
+                                    onChangeText={setCode}
+                                />
+                            </View>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Montant"
+                                    value={amount}
+                                    onChangeText={setAmount}
+                                />
+                                <Text style={styles.icon}>GNF</Text>
+                            </View>
+                            {code.length > 4 && (
+                                <TouchableOpacity
+                                style={styles.confirmer}
+                                onPress={() => navigation.navigate("ConfirmMarchand", {
+                                    name,
+                                    phone,
+                                    amount
+                                })}
+                            >
+                                <Text style={styles.confirmerText}>Retirer</Text>
+                            </TouchableOpacity>
+                            )}
                         </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Nom du bénéficiaire*"
-                                value={name}
-                                onChangeText={setName}
-                            />
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Code de confirmation*"
-                                value={code}
-                                onChangeText={setCode}
-                            />
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Montant"
-                                value={amount}
-                                onChangeText={setAmount}
-                            />
-                            <Text style={styles.icon}>GNF</Text>
-                        </View>
-                        {code.length > 4 && (
-                            <TouchableOpacity
-                            style={styles.confirmer}
-                            onPress={() => navigation.navigate("ConfirmMarchand", {
-                                name,
-                                phone,
-                                amount
-                            })}
-                        >
-                            <Text style={styles.confirmerText}>Retirer</Text>
-                        </TouchableOpacity>
-                        )}
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
+
     );
 }
 

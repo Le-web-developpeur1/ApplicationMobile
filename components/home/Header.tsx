@@ -1,30 +1,41 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
 import { scale, moderateScale, verticalScale} from "react-native-size-matters";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/navigation/types";
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 interface HeaderProps {
   username?: string;
 }
 
 const Header = ({ username = "Bouba" }: HeaderProps) => {
-  
+  const navigation = useNavigation<NavigationProp>();
+
   return (
       <View style={styles.container}>
-        
-        <View>
+        <View style={styles.profil}>
+          <TouchableOpacity 
+            onPress={() => navigation.navigate("Profil")}
+            style={styles.avatarContainer}
+          >
+            <Image
+              source={{
+                uri: "https://s3-alpha.figma.com/profile/79207c4d-bd0d-4480-8449-f5ff7527c971",
+              }}
+              style={styles.avatar}
+            />
+          </TouchableOpacity>
           <Text style={styles.greeting}>Bonjour, {username}</Text>
-          <Text style={styles.subtitle}>Bienvenue sur CashMoov</Text>
         </View>
-
-        <TouchableOpacity style={styles.avatarContainer}>
-          <Image
-            source={{
-              uri: "https://s3-alpha.figma.com/profile/79207c4d-bd0d-4480-8449-f5ff7527c971",
-            }}
-            style={styles.avatar}
-          />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Ionicons name="notifications-outline" color={"white"} size={moderateScale(20)}/>
         </TouchableOpacity>
-
       </View>
   );
 };
@@ -32,12 +43,16 @@ const Header = ({ username = "Bouba" }: HeaderProps) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  
-
+  profil: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: scale(10)
+  },
   container: {
     width: "100%",
+    paddingVertical: verticalScale(9),
     paddingHorizontal: scale(20),
-    paddingTop: verticalScale(42),
     paddingBottom: verticalScale(100),
     backgroundColor: "#2A4793",
     borderBottomLeftRadius: moderateScale(25),
