@@ -59,6 +59,7 @@ import NotificationsScreen from '@/screen/notifications/NotificationsScreen';
 import ProfileScreen from '@/screen/profil/ProfilScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppWithTabs() {

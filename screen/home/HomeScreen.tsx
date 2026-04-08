@@ -20,7 +20,6 @@ export default function HomeScreen() {
             <QuickActions />
             <Services />
             <RecentTransactions />
-            <RecentTransactions />
           </ScrollView>
         </View>
       </SafeAreaView>

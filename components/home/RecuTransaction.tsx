@@ -8,6 +8,7 @@ import { RootStackParamList } from "@/navigation/types";
 import ViewShot from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 import { useRef } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -44,46 +45,48 @@ export default function RecuTransaction() {
 
     
     return (
-        <View style={{ flex: 1 }}> 
-            <Header title="Reçu de paiement"/>
-            <ViewShot ref={viewShotRef} options={{ format: "jpg", quality: 0.9}}>
-                <View style={styles.container}>
-                        <Text style={styles.id}>ID: {id}</Text>
-                        <Text style={styles.type}>{type}</Text>
-                        <Text style={styles.type}>Status de la transaction : {stat}</Text>
-                        <Text style={styles.amount}>{amount}</Text>
-                        <View style={styles.separator}/>
-                    <View style={styles.benef}>
-                        <Text style={styles.benefTitle}>Bénéficiaire</Text>
-                        <View style={styles.info}>
-                            <View style={styles.iconUser}>
-                                <FontAwesome6 name="user" size={moderateScale(20)} color="#2A4793"/>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
+            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}> 
+                <Header title="Reçu de paiement"/>
+                <ViewShot ref={viewShotRef} options={{ format: "jpg", quality: 0.9}}>
+                    <View style={styles.container}>
+                            <Text style={styles.id}>ID: {id}</Text>
+                            <Text style={styles.type}>{type}</Text>
+                            <Text style={styles.type}>Status de la transaction : {stat}</Text>
+                            <Text style={styles.amount}>{amount}</Text>
+                            <View style={styles.separator}/>
+                        <View style={styles.benef}>
+                            <Text style={styles.benefTitle}>Bénéficiaire</Text>
+                            <View style={styles.info}>
+                                <View style={styles.iconUser}>
+                                    <FontAwesome6 name="user" size={moderateScale(20)} color="#2A4793"/>
+                                </View>
+                                <View style={styles.nameDate}>
+                                    <Text style={styles.name}>{name}</Text>
+                                    <Text style={styles.date}>{date}</Text>
+                                </View>
+                                <Text style={styles.numero}>{formatPhone(phone)}</Text>
                             </View>
-                            <View style={styles.nameDate}>
-                                <Text style={styles.name}>{name}</Text>
-                                <Text style={styles.date}>{date}</Text>
-                            </View>
-                            <Text style={styles.numero}>{formatPhone(phone)}</Text>
                         </View>
                     </View>
+                </ViewShot>
+                <View style={styles.button}>
+                    <TouchableOpacity
+                        style={styles.annuler}
+                        onPress={() => navigation.navigate("Tabs")}
+                    >
+                        <Text style={styles.annulerText}>Retour</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.confirmer}
+                        onPress={captureAndShare}
+                    >
+                        <EvilIcons name="share-google" size={22} color="#2A4793"/>
+                        <Text style={styles.confirmerText}>Partager</Text>
+                    </TouchableOpacity>
                 </View>
-            </ViewShot>
-            <View style={styles.button}>
-                <TouchableOpacity
-                    style={styles.annuler}
-                    onPress={() => navigation.navigate("Tabs")}
-                >
-                    <Text style={styles.annulerText}>Retour</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.confirmer}
-                    onPress={captureAndShare}
-                >
-                    <EvilIcons name="share-google" size={22} color="#2A4793"/>
-                    <Text style={styles.confirmerText}>Partager</Text>
-                </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
         marginHorizontal: scale(20),
         paddingVertical: verticalScale(30),       
         borderRadius: moderateScale(8),
-        marginTop: verticalScale(-25),
+        marginTop: verticalScale(-10),
         justifyContent: "flex-start",
         alignItems: "center",
         paddingBottom: verticalScale(5)

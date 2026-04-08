@@ -6,7 +6,6 @@ import Onboarding2 from "@/screen/onboarding/Onboarding2";
 import Onboarding3 from "@/screen/onboarding/Onboarding3";
 
 import PhoneScreen from "@/screen/auth/PhoneScreen";
-import PinScreen from "@/screen/auth/PinScreen";
 import RegisterScreen from "@/screen/auth/RegisterScreen";
 import  Pin  from '@/screen/auth/Pin';
 

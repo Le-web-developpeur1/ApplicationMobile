@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Disconnected() {
     const navigation = useNavigation();
-
+    
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#2A4793"}}>
             <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>

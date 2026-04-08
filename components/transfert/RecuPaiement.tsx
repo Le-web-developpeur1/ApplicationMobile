@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         marginHorizontal: scale(30),
         paddingVertical: verticalScale(20),       
         borderRadius: moderateScale(8),
-        marginTop: verticalScale(-25),
+        marginTop: verticalScale(-10),
         paddingBottom: verticalScale(5),
     },
     separator: {
